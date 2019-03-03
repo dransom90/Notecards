@@ -1,10 +1,11 @@
 package com.example.notecards
 
+import java.io.Serializable
 import java.util.*
 import java.time.*
 import java.time.temporal.TemporalAdjusters
 
-data class Notecard (var title: String, var frequency: String){
+data class Notecard (var title: String, var frequency: String) : Serializable{
     override fun toString(): String = "$frequency: $title"
 
     var nextDueDate = LocalDate.now()

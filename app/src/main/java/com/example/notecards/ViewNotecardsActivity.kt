@@ -15,12 +15,23 @@ class ViewNotecardsActivity : AppCompatActivity() {
         setContentView(R.layout.activity_view_notecards)
         setSupportActionBar(toolbar)
 
+        DataManager.read(this)
+
+
+
         fab.setOnClickListener { view ->
             val activityIntent = Intent(this, MainActivity::class.java)
             startActivity(activityIntent)
         }
 
         listNotes.adapter = ArrayAdapter(this, android.R.layout.simple_list_item_1, DataManager.notes)
+    }
+
+    override fun onResume() {
+        super.onResume()
+
+        var sortedList = DataManager.notes.sortedWith(compareBy {it.nextDueDate})
+        listNotes.adapter = ArrayAdapter(this, android.R.layout.simple_expandable_list_item_1, sortedList)
     }
 
 }

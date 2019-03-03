@@ -1,6 +1,7 @@
 package com.example.notecards
 
 import android.os.Bundle
+import android.provider.ContactsContract
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu
 import android.view.MenuItem
@@ -28,7 +29,10 @@ class MainActivity : AppCompatActivity() {
             val notecard = Notecard(titleTxt.text.toString(), noteFrequencySpinner.selectedItem.toString())
             notecard.calculateDueDate()
             DataManager.notes.add(notecard)
+
             DataManager.notes.sortedWith(compareBy {it.nextDueDate})
+            DataManager.write(this)
+
             finish()
         }
     }
